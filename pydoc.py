@@ -717,7 +717,7 @@ class HTMLDoc(Doc):
                 if modname != name and module and hasattr(module, key):
                     if getattr(module, key) is base:
                         if not key in cdict:
-                            cdict[key] = cdict[base] = modname + '.html#' + key
+                            cdict[key] = cdict[base] = '#' + key
         funcs, fdict = [], {}
         for key, value in inspect.getmembers(object, inspect.isroutine):
             # if __all__ exists, believe it.  Otherwise use old heuristic.
