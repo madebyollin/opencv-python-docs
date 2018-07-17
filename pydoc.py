@@ -575,28 +575,24 @@ class HTMLDoc(Doc):
         """Make a link for a class."""
         name, module = object.__name__, sys.modules.get(object.__module__)
         if hasattr(module, name) and getattr(module, name) is object:
-            return '<a href="%s.html#%s">%s</a>' % (
-                module.__name__, name, classname(object, modname))
+            return '<a href="#%s">%s</a>' % (
+                name, classname(object, modname))
         return classname(object, modname)
 
     def modulelink(self, object):
         """Make a link for a module."""
-        return '<a href="%s.html">%s</a>' % (object.__name__, object.__name__)
+        return '<a href="#">%s</a>' % (object.__name__, object.__name__)
 
     def modpkglink(self, modpkginfo):
         """Make a link for a module or package to display in an index."""
         name, path, ispackage, shadowed = modpkginfo
         if shadowed:
             return self.grey(name)
-        if path:
-            url = '%s.%s.html' % (path, name)
-        else:
-            url = '%s.html' % name
         if ispackage:
             text = '%s (package)' % name
         else:
             text = name
-        return '<a class="link-modpkg" href="%s">%s</a>' % (url, text)
+        return '<a class="link-modpkg" href="#">%s</a>' % (text)
 
     def filelink(self, url, path):
         """Make a link to source file."""
@@ -675,8 +671,8 @@ class HTMLDoc(Doc):
         links = []
         for i in range(len(parts) - 1):
             links.append(
-                '<a class="link-module" href="%s.html">%s</a>' %
-                ('.'.join(parts[:i + 1]), parts[i]))
+                '<a class="link-module" href="#">%s</a>' %
+                (parts[i]))
         linkedname = '.'.join(links + parts[-1:])
         head = '<div class="title-module">%s</div>' % linkedname
         try:
@@ -2419,7 +2415,7 @@ def _url_handler(url, content_type="text/html"):
         """Module Index page."""
 
         def bltinlink(name):
-            return '<a href="%s.html">%s</a>' % (name, name)
+            return '<a href="#">%s</a>' % (name, name)
 
         heading = html.heading(
             '<big><big><strong>Index of Modules</strong></big></big>',
@@ -2459,7 +2455,7 @@ def _url_handler(url, content_type="text/html"):
 
         # format page
         def bltinlink(name):
-            return '<a href="%s.html">%s</a>' % (name, name)
+            return '<a href="#">%s</a>' % (name)
 
         results = []
         heading = html.heading(
