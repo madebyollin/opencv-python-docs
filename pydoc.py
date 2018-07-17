@@ -86,11 +86,16 @@ def pathdirs():
             normdirs.append(normdir)
     return dirs
 
+def strip_dots(s):
+    s = "\n".join(l[1:] if l.startswith('.') else l for l in s.split("\n"))
+    return s
 
 def getdoc(object):
     """Get the doc string or comments for an object."""
     result = inspect.getdoc(object) or inspect.getcomments(object)
-    return result and re.sub('^ *\n', '', result.rstrip()) or ''
+    result = result and re.sub('^ *\n', '', result.rstrip()) or ''
+    result = strip_dots(result)
+    return result
 
 
 def splitdoc(doc):

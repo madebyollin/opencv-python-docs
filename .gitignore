@@ -1,0 +1,7 @@
+*.map
+*.swp
+node_modules
+.sass-cache
+package-lock.json
+scss
+start.sh
